@@ -11,21 +11,27 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src"),
+      "@": resolve(__dirname, "src"),
     },
   },
 
   build: {
+    outDir: "dist",
+    sourcemap: false,
+
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
-            if (id.includes("react")) return "react";
+            if (id.includes("react")) {
+              return "react";
+            }
             return "vendor";
           }
         },
       },
     },
+
     chunkSizeWarningLimit: 800,
   },
 });
